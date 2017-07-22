@@ -1,0 +1,22 @@
+{
+    "name": "selami/commands",
+    "description": "",
+    "type": "library",
+    "require": {
+        "selami/console": "^0.2.2",
+        "symfony/process": "~3.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mehmet Korkmaz",
+            "email": "mehmet@mkorkmaz.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Selami\\Command\\": "src/"
+        }
+    }
+}
