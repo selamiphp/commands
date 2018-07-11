@@ -29,18 +29,20 @@ class ClearViewData extends SelamiCommand
         $config = $this->container->get('config');
         $viewCachePath = $config['view'][$config['view']['type']]['cache'];
         $output->writeln('Files under '.$viewCachePath .' will be deleted.');
-        $cachedViewFileFolders = glob($viewCachePath.'/*');
-        foreach ($cachedViewFileFolders as $folder) {
-            $files = glob($folder.'/*');
-            $output->writeln('Files under '.$folder .' will be deleted.');
-            foreach ($files as $file) {
-                $unlinkResult  =  file_exists($file)
-                    ? (unlink($file) === true) ? 'deleted.':'could\'t deleted'
-                    :' file does not exist';
-                $output->writeln($file . ' ' . $unlinkResult);
+        if ( (string) $viewCachePath !== '') {
+            $cachedViewFileFolders = glob($viewCachePath . '/*');
+            foreach ($cachedViewFileFolders as $folder) {
+                $files = glob($folder . '/*');
+                $output->writeln('Files under ' . $folder . ' will be deleted.');
+                foreach ($files as $file) {
+                    $unlinkResult = file_exists($file)
+                        ? (unlink($file) === true) ? 'deleted.' : 'could\'t deleted'
+                        : ' file does not exist';
+                    $output->writeln($file . ' ' . $unlinkResult);
+                }
+                rmdir($folder);
+                $output->writeln($folder . ' emptied.');
             }
-            rmdir($folder);
-            $output->writeln($folder .' emptied.');
         }
         $output->writeln($viewCachePath .' emptied.');
 
