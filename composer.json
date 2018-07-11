@@ -1,10 +1,10 @@
 {
     "name": "selami/commands",
-    "description": "",
+    "description": " Build in commands for Selami.",
     "type": "library",
     "require": {
-        "selami/console": "^0.2.2",
-        "symfony/process": "~3.3"
+        "selami/console": "^0.3",
+        "symfony/process": "^4.1"
     },
     "license": "MIT",
     "authors": [
