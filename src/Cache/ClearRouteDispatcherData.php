@@ -28,9 +28,16 @@ class ClearRouteDispatcherData extends SelamiCommand
     {
         $config = $this->container->get('config');
         $routeCacheFile = $config['app']['cache_file'] ?? '';
-        $unlinkResult  =  file_exists((string) $routeCacheFile)
-            ? unlink($routeCacheFile) ? 'deleted.' : 'could\'t deleted'
-            : 'does not exist!';
-        $output->writeln('Route cache file '  .$routeCacheFile . ' ' . $unlinkResult);
+       if (trim((string) $routeCacheFile) !== '') {
+           $folder = dirname($routeCacheFile);
+           $files = glob($folder . '/*fastroute.cache');
+           $output->writeln('Fastroute cache files under ' . $folder . ' will be deleted.');
+           foreach ($files as $file) {
+               $unlinkResult = file_exists($file)
+                   ? (unlink($file) === true) ? 'deleted.' : 'could\'t deleted'
+                   : ' file does not exist';
+               $output->writeln($file . ' ' . $unlinkResult);
+           }
+       }
     }
 }
