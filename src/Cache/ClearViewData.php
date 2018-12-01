@@ -3,13 +3,21 @@ declare(strict_types=1);
 
 namespace Selami\Command\Cache;
 
-use Selami\Console\Command as SelamiCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
-class ClearViewData extends SelamiCommand
+class ClearViewData extends Command
 {
+    private $config;
+
+    public function __construct(array $config, ?string $name = null)
+    {
+        $this->config = $config;
+        parent::__construct($name);
+    }
+
     /**
      * @inheritdoc
      * @throws InvalidArgumentException
@@ -26,12 +34,10 @@ class ClearViewData extends SelamiCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $config = $this->container->get('config');
-        $viewCachePath = $config['view'][$config['view']['type']]['cache'];
+        $viewCachePath = $this->config[$this->config['type']]['cache'];
         $output->writeln('Files under '.$viewCachePath .' will be deleted.');
-        if ( (string) $viewCachePath !== '') {
-            $cachedViewFileFolders = glob($viewCachePath . '/*');
-            foreach ($cachedViewFileFolders as $folder) {
+        if ((string) $viewCachePath !== '') {
+            foreach (glob($viewCachePath . '/*') as $folder) {
                 $files = glob($folder . '/*');
                 $output->writeln('Files under ' . $folder . ' will be deleted.');
                 foreach ($files as $file) {
@@ -45,6 +51,5 @@ class ClearViewData extends SelamiCommand
             }
         }
         $output->writeln($viewCachePath .' emptied.');
-
     }
 }

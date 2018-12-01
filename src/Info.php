@@ -3,13 +3,20 @@ declare(strict_types=1);
 
 namespace Selami\Command;
 
-use Selami\Console\Command as SelamiCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
-class Info extends SelamiCommand
+class Info extends Command
 {
+    private $config;
+    public function __construct(array $config, ?string $name = null)
+    {
+        $this->config = $config;
+        parent::__construct($name);
+    }
+
     /**
      * @inheritdoc
      * @throws InvalidArgumentException
@@ -26,7 +33,6 @@ class Info extends SelamiCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $config = $this->container->get(Config::class);
-        $output->writeln(json_encode($config->toArray(), JSON_PRETTY_PRINT));
+        $output->writeln(json_encode($this->config, JSON_PRETTY_PRINT));
     }
 }

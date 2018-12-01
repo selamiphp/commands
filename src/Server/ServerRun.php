@@ -43,7 +43,11 @@ class ServerRun extends SelamiCommand
         $publicFolder = $input->getOption('public');
 
         $output->writeln(' ');
-        $output->writeln('<comment>-----------------------------SELAMI WEB SERVER-----------------------------------</comment>');
+        $output->writeln(
+            '<comment>-----------------------------'
+            . 'SELAMI WEB SERVER'
+            . '-----------------------------------</comment>'
+        );
         $output->writeln(' ');
 
         $output->writeln(' <comment>Usage:</comment>');
@@ -51,14 +55,22 @@ class ServerRun extends SelamiCommand
         $output->writeln(' ');
 
         $output->writeln(' <comment>Available Options:</comment>');
-        $output->writeln('     <info>--host  </info>        Sets host name. <comment>Default: 127.0.0.1</comment>');
-        $output->writeln('     <info>--public</info>        Sets public folder that server will be run. <comment>Default: ./public</comment>');
+        $output->writeln('     <info>--host  </info>'
+            . '        Sets host name. <comment>Default: 127.0.0.1</comment>');
+        $output->writeln('     <info>--public</info>        '
+            . 'Sets public folder that server will be run. <comment>Default: ./public</comment>');
         $output->writeln(' ');
 
-        $output->writeln('<comment>---------------------------------------------------------------------------------</comment>');
+        $output->writeln('<comment>-------------------------------------------'
+            . '--------------------------------------</comment>');
         $output->writeln(' ');
 
-        $output->writeln('Starting Selami Skeleton App local web server from port 8080 on 127.0.0.1 at '.$publicFolder);
+        $output->writeln(
+            sprintf(
+                'Starting Selami Skeleton App local web server from port 8080 on 127.0.0.1 at %s',
+                $publicFolder
+            )
+        );
         $process = new Process('php -S ' . $hostName . ':8080 -t ' . $publicFolder);
         $process->setTimeout(null);
         $process->run();

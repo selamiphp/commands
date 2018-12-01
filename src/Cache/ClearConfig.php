@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Selami\Command\Cache;
 
-use Selami\Console\Command as SelamiCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
-class ClearConfig extends SelamiCommand
+class ClearConfig extends Command
 {
     /**
      * @inheritdoc
