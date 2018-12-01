@@ -26,7 +26,7 @@ class ClearRouteDispatcherData extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $files = glob( './cache/*fastroute.cache');
+        $files = glob('./cache/*fastroute.cache');
         $output->writeln('FastRoute cache files under ./cache will be deleted.');
         foreach ($files as $file) {
             $unlinkResult = file_exists($file)
