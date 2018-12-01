@@ -14,7 +14,7 @@ class ClearViewData extends Command
 
     public function __construct(array $config, ?string $name = null)
     {
-        $this->config = $config;
+        $this->config = $config['view'];
         parent::__construct($name);
     }
 

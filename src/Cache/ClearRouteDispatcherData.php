@@ -7,7 +7,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use function dirname;
 
 class ClearRouteDispatcherData extends Command
 {
@@ -27,9 +26,8 @@ class ClearRouteDispatcherData extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $folder = dirname('cache');
-        $files = glob($folder . '/*fastroute.cache');
-        $output->writeln('FastRoute cache files under ' . $folder . ' will be deleted.');
+        $files = glob( './cache/*fastroute.cache');
+        $output->writeln('FastRoute cache files under ./cache will be deleted.');
         foreach ($files as $file) {
             $unlinkResult = file_exists($file)
                 ? (unlink($file) === true) ? 'deleted.' : 'could\'t deleted'
